@@ -1,0 +1,68 @@
+<html>
+
+<head>
+  <title>HummingWare | Aloware PA System</title>
+  <!-- Betterment: https://codepen.io/SteveJRobertson/pen/emGWaR?editors=1111 -->
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Pusher -->
+  <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+  <!-- Actual Work -->
+  <script type="text/javascript">
+  	// ?? 
+  	window.speechSynthesis.onvoiceschanged = function() {
+    	// window.speechSynthesis.getVoices();
+    	writeLi("Voices ready.");
+	};
+  	// work 
+  	function speakAndWrite(text) {
+  		// write my li
+  		writeLi(text);
+  		// speak
+  		// https://codepen.io/SteveJRobertson/pen/emGWaR?editors=1111
+		// start the speak object 
+      	var msg = new SpeechSynthesisUtterance();
+      	var voices = window.speechSynthesis.getVoices();
+      	// this takes some time to load
+      	msg.voice = voices[49]; // others: 0 for Alex, 1 for Alice, 49 for Google 
+      	msg.rate = 1; // 1 - 100
+      	msg.pitch = 1; // 0, 1 , 2
+      	msg.text = text;
+      	// actually say it 
+ 	  	speechSynthesis.speak(msg);
+	}
+
+	// util 
+	function writeLi(text) {
+  		var dt = new Date();
+		var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+  		$("#messages"). append('<li>(' + time + ') -- ' + text + ' </li>');
+  	}
+
+	// Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('<%= pusher_app_key %>', {
+      cluster: 'us3',
+      forceTLS: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+    	console.log(data)
+      	speakAndWrite(data.message)
+    });
+  </script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Welcome to HummingWare</h1>
+  <p>Manual Start: <button onclick="speakAndWrite('Starting up HummingWare...');">Start</button></p>
+  <p>Messages: </p>
+  <ul id="messages">
+  	<!-- messages go here. -->
+  </ul>
+</body>
+
+</html>
