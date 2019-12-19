@@ -1,6 +1,10 @@
 ## Aloware Hummingbird 
 
-Simple PA system to announce stuff with a simple GET request. 
+Simple PA system to announce stuff with a simple GET API. 
+
+#### Why 
+
+Alwoare needs a way to send some notifications (new leads, new registration, calendar events) to a speaker. This thing does that.
 
 ### Launching 
 
