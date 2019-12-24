@@ -2,6 +2,8 @@
 
 Simple, browser-based, voice-enabled Public Announcement system for small teams. 
 
+Also, a nice example of [HTML5 text to speech](https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API), [Web Speech API](https://wicg.github.io/speech-api/)
+
 #### Why 
 
 Our software [Aloware](https://www.aloware.com) is noisy. We (developers, admins) get a lot of notifications by email and on Slack. Sometimes things get lost. 
